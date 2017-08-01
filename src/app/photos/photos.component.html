@@ -1,3 +1,75 @@
-<p>
-  photos works!
-</p>
+
+<div class="searchContainer">
+    <div class="form-group">
+        <input type="number" class="form-control" placeholder="Search" [(ngModel)]="id">
+    </div>
+
+    <div class="searchButton" >
+        Search by:
+ 
+    <button routerLink="/users" class="btn btn-warning btn-xs">Username</button>
+    <button (click)='setSearchType("userIdCase")' class="btn btn-danger btn-xs">User ID</button>
+    <button (click)='setSearchType("albumIdCase")' class="btn btn-danger btn-xs">Album ID</button>
+    <button (click)='setSearchType("photoIdCase")' class="btn btn-success btn-xs">Photo ID</button>
+    </div>
+</div>
+
+
+<hr>
+<!--
+<div class="chooseSearhType" >
+
+  <div *ngIf="pipeType === 'albumIdCase' || pipeType === 'photoIdCase'">
+
+    <div class="panel panel-primary" *ngFor="let photo of photos | photosCase :id :pipeType">
+      
+      <div class="panel-heading">
+          <h3 class="panel-title">{{item.title}} and user id is {{id}}</h3>
+      </div>
+      <div class="panel-body center">
+          <img src="{{item.url}}">
+      </div>    
+
+    </div>
+  </div> 
+
+  <div *ngIf="pipeType === 'userIdCase'">
+-->
+    <div class="panel panel-primary" *ngFor="let item of photosPerUser(id)">
+      
+      <div class="panel-heading">
+          <h3 class="panel-title">{{item.title}} and user id is {{id}}</h3>
+      </div>
+      <div class="panel-body center">
+          <img src="{{item.url}}">
+      </div>    
+    </div>
+<!--
+  </div>
+
+</div>
+-->
+
+<!--
+<ul class="pagination">
+  <li class="disabled"><a href="#">&laquo;</a></li>
+  <li class="active"><a href="#">1</a></li>
+  
+  <div class="numberOfPages" *ngFor="let album of albums" let i=0>
+    <div *ngIf="id === album.userId">
+      <div *ngFor="let photo of photos" let j=index>
+      
+        <div *ngIf="album.id === photo.albumId" >
+    
+          <p>yes</p>
+          <li><a href="#">2</a></li>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <li><a href="#">&raquo;</a></li>
+</ul>
+
+-->

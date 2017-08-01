@@ -7,11 +7,18 @@ import { PhotosComponent } from './photos/photos.component';
 import { UsersComponent } from './users/users.component';
 
 export const router: Routes = [
-    { path: '', component: UsersComponent},
     { path: 'users', component: UsersComponent},
-    { path: 'users/posts', component: PostsComponent},
-    { path: 'users/photos', component: PhotosComponent}
+    { path: '', redirectTo: '/users', pathMatch: 'full'},
+    { path: 'posts', component: PostsComponent},
+    { path: 'posts/:id', component: PostsComponent },
+    { path: 'photos', component: PhotosComponent},
+    { path: 'photos/:id', component: PhotosComponent}
 
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);
+
+export const appRoutingProviders: any[] = [
+
+];  
+export const routing = RouterModule.forRoot(router);

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UsersService } from '../users.service';
-import { Output } from '@angular/core';
 
+
+import { PostsComponent } from '../posts/posts.component';
+
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,8 +15,6 @@ import { Output } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  @Output() messagefromuser = 'hey im user';
-
   filterType: string;
   selectedUser: string;
 
@@ -23,7 +24,7 @@ export class UsersComponent implements OnInit {
   name: String;
   users: User[];
 
-  constructor(UsersService: UsersService){
+  constructor(UsersService: UsersService, private router: Router){
 
     this.pipeType = '';
    
@@ -38,24 +39,6 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  setSearchName(button: HTMLInputElement) {
-    console.log(`Adding filter type button name clicked`);
-    this.filterType = 'name';
-    this.pipeType = 'nameCase';
-  }
-
-  setSearchEmail(button: HTMLInputElement) {
-    console.log(`Adding filter type button Email clicked`);
-    this.filterType = 'email';
-    this.pipeType = 'emailCase'
-  }
-
-  setSearchStreet(button: HTMLInputElement) {
-    console.log(`Adding filter type button street clicked`);
-    this.filterType = 'street';
-    this.pipeType = 'streetCase';
   }
 
   setSearchType(value: String) {
@@ -74,9 +57,21 @@ export class UsersComponent implements OnInit {
     this.selectedUser = (JSON.stringify(button));
   }
 
+  getUserIDfromUsername(username: string) {
+    let user = username.replace(/"/g, '');
+    for(let person of this.users) {
+      if(person.username == user) {
+        return person.id;
+      }
+    }
+    return 0;
+    }
 
 }
+
+
  interface User {
+    id: number;
     name: string;
     username: string;
     email: string;

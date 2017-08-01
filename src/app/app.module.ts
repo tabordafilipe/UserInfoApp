@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { routes } from './app.router';
+import { routes, appRoutingProviders } from './app.router';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
@@ -14,6 +14,7 @@ import { UsersService } from './users.service';
 
 
 import { GeneralCasePipe } from './pipes/general-case.pipe';
+import { PhotosCasePipe } from './photos-case.pipe';
 
 
 @NgModule({
@@ -23,6 +24,8 @@ import { GeneralCasePipe } from './pipes/general-case.pipe';
     PhotosComponent,
     UsersComponent,
     GeneralCasePipe,
+    PhotosCasePipe,
+ 
   ],
   imports: [
     BrowserModule,

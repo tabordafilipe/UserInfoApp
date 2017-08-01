@@ -3,50 +3,19 @@
     <input type="text" class="form-control" placeholder="Search" [(ngModel)]="name">
   </div>
 
-
   <div class="searchButton" >
     Search by:
     <button (click)='setSearchType("nameCase")' class="btn btn-danger btn-xs">Name</button>
     <button (click)='setSearchType("emailCase")' class="btn btn-success btn-xs">Email</button>
     <button (click)='setSearchType("phoneCase")' class="btn btn-warning btn-xs">Phone</button>
-
-    <div class="nav navbar-nav navbar-right">
-        User selected (username):  <br>{{selectedUser}}
-    </div>
-
-    
-
-
-</div>
-</div>
-
-
-
-
-<!--
-<nav class="navbar navbar-default">
-  <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <a>   Search by:  </a>
-         <button (click)='setSearchName($event)' class="btn btn-default" >Name</button>
-          <button (click)='setSearchEmail($event)' class="btn btn-success">Email</button>
-         <button (click)='setSearchStreet($event)' class="btn btn-warning">Street</button>
-       
-         <ul class="nav navbar-nav navbar-right">
-       User selected (username): {{selectedUser}}
-      </ul>
-
-   </form>
-
+  </div>
   
-</nav>
+</div>
 
--->
+
 <hr>
 
-    <div class="panel panel-primary" *ngFor="let user of users | generalCase :name :pipeType">
+<div class="panel panel-primary" *ngFor="let user of users | generalCase :name :pipeType">
     
       <div class="panel-heading">
         <h3 class="panel-title">{{user.name}}</h3>
@@ -61,123 +30,10 @@
         <strong>Zipcode:</strong> {{user.address.zipcode}}<br>
       </div>    
       
-      <div class="select-user">
-        <button (click)="saveSelectedUser(user.username)" class="btn btn-info btn-xs">Select User</button>
+      <div class="goTo" >
+        <button [routerLink]="['/posts', user.id]" class="btn btn-info btn-xs">Posts</button>
+        <button [routerLink]="['/photos', user.id]" class="btn btn-info btn-xs">Photos</button>
       </div>
       
-      </div>
-
-
-
-<!-- That code works
-
-<div class="nameChoose">
-
-  <div class="buttonName" *ngIf="pipeType == 'nameCase' || pipeType == ''">
-
-    <div class="panel panel-primary" *ngFor="let user of users | nameCase :name">
-    
-      <div class="panel-heading">
-        <h3 class="panel-title">{{user.name}}</h3>
-      </div>
-      <div class="panel-body">
-        <strong>Username:</strong> {{user.username}}<br>
-        <strong>Email:</strong> {{user.email}}<br>
-        <strong>Phone number:</strong> {{user.phone}}<br>
-        <strong>Street:</strong> {{user.address.street}}<br>
-        <strong>Suite:</strong> {{user.address.suite}}<br>
-        <strong>City:</strong> {{user.address.city}}<br>
-        <strong>Zipcode:</strong> {{user.address.zipcode}}<br>
-      </div>    
       
-      <div class="select-user">
-        <button (click)="saveSelectedUser(user.username)" class="btn btn-danger btn-xs">Select User</button>
-        <app-posts [message]="selectedUser"></app-posts>
-      </div>
-      
-      </div>
-  </div>
-
-  <div class="buttonName" *ngIf="pipeType == 'emailCase'">
-
-    <div class="panel panel-primary" *ngFor="let user of users | emailCase :name">
-    
-      <div class="panel-heading">
-        <h3 class="panel-title">{{user.name}}</h3>
-      </div>
-      <div class="panel-body">
-        <strong>Username:</strong> {{user.username}}<br>
-        <strong>Email:</strong> {{user.email}}<br>
-        <strong>Phone number:</strong> {{user.phone}}<br>
-        <strong>Street:</strong> {{user.address.street}}<br>
-        <strong>Suite:</strong> {{user.address.suite}}<br>
-        <strong>City:</strong> {{user.address.city}}<br>
-        <strong>Zipcode:</strong> {{user.address.zipcode}}<br>
-      </div>    
-      
-      <div class="select-user">
-        <button (click)="saveSelectedUser(user.username)" class="btn btn-warning btn-xs">Select User</button>
-        <app-posts [message]="selectedUser"></app-posts>
-      </div>
-      
-    </div>
-  </div>
-
--->
-
-
-
-<!--
-<div class="emailChoose">
-  <div class="panel panel-primary" *ngFor="let user of users | emailCase :name">
-  
-    <div class="panel-heading">
-      <h3 class="panel-title">{{user.name}}</h3>
-    </div>
-    <div class="panel-body">
-      <strong>Username:</strong> {{user.username}}<br>
-      <strong>Email:</strong> {{user.email}}<br>
-      <strong>Phone number:</strong> {{user.phone}}<br>
-      <strong>Street:</strong> {{user.address.street}}<br>
-      <strong>Suite:</strong> {{user.address.suite}}<br>
-      <strong>City:</strong> {{user.address.city}}<br>
-      <strong>Zipcode:</strong> {{user.address.zipcode}}<br>
-    </div>    
-    
-    <div class="select-user">
-      <button (click)="saveSelectedUser(user.username)" class="btn btn-primary btn-xs">Select User</button>
-      <app-posts [message]="selectedUser"></app-posts>
-    </div>
-    
-  </div>
 </div>
-<div class="streetChoose">
-  <div class="panel panel-primary" *ngFor="let user of users | streetCase :name">
-  
-    <div class="panel-heading">
-      <h3 class="panel-title">{{user.name}}</h3>
-    </div>
-    <div class="panel-body">
-      <strong>Username:</strong> {{user.username}}<br>
-      <strong>Email:</strong> {{user.email}}<br>
-      <strong>Phone number:</strong> {{user.phone}}<br>
-      <strong>Street:</strong> {{user.address.street}}<br>
-      <strong>Suite:</strong> {{user.address.suite}}<br>
-      <strong>City:</strong> {{user.address.city}}<br>
-      <strong>Zipcode:</strong> {{user.address.zipcode}}<br>
-    </div>    
-    
-    <div class="select-user">
-      <button (click)="saveSelectedUser(user.username)" class="btn btn-primary btn-xs" >Select User</button>
-      <app-posts [message]="selectedUser"></app-posts>
-    </div>
-    
-  </div>
-</div>
-
-
-  <h1>Parent</h1>
-  <app-posts [message]="messagefromuser"></app-posts>
-
-
-  -->
