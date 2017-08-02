@@ -16,10 +16,13 @@
 
 
 <hr>
-<div *ngIf="photosPerFilter(id) === null">Without results</div>
-  
+
+
+
     <div class="panel panel-primary" *ngFor="let item of photosPerFilter(id)">
+        
     
+
 
       <div class="panel-heading">
           <h3 class="panel-title">{{item.title}} ------- {{pipeType}} is {{id}}</h3>
@@ -49,4 +52,6 @@
 </ul>
 
 -->
+
+<pagination [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>   
 

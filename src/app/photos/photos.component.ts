@@ -28,6 +28,17 @@ export class PhotosComponent implements OnInit {
   photos: Photo[];
   numberOfPages: number;
 
+  auxArray: Photo[];
+
+  public totalItems: number =500;
+  public currentPage: number = 1;
+  public smallnumPages: number = 0;
+
+  firstIndex :number;
+  lastIndex :number;
+ 
+
+
   constructor(AlbumsService: AlbumsService, PhotosService: PhotosService, private route: ActivatedRoute) { 
 
     this.id = 0;
@@ -63,17 +74,35 @@ export class PhotosComponent implements OnInit {
   }
 
 
+  public setPage(pageNo: number): void {
+    this.currentPage = pageNo;
+  }
+ 
+  public pageChanged(event: any): void {
+    this.setPage(event.page);
+    this.firstIndex = (this.currentPage - 1) * 10;
+    this.lastIndex = this.currentPage * 10;
+
+    console.log('Page changed to: ' + event.page);
+    console.log(`Current page`,this.currentPage);
+    console.log('Number items per page: ' + event.itemsPerPage);
+  }
+
   public photosPerFilter(toAnalize :number):Photo[] {
-    console.log(`The id is: `,toAnalize);
-    console.log(`Albums: `,this.albums);
-    console.log(`Photos: `,this.photos);
     var photosPerFilter = [];
+    var auxPhotosPerFilter = [];
+    
+
+    this.firstIndex = (this.currentPage - 1) * 10;
+    this.lastIndex = this.currentPage * 10;
+
+    console.log(`first index`,this.firstIndex);
+    console.log(`last index`, this.lastIndex);
+
     var index = 0;
     
     if (toAnalize === null || this.photos === undefined || this.albums === undefined) {
-      console.log(`to analize`,toAnalize);
-      console.log(`photos`,this.photos);
-      console.log(`albums`,this.albums);
+      
       /*
       for(let i = 0; i < 10; i++) {
         photosPerFilter[i] = this.photos
@@ -89,12 +118,8 @@ export class PhotosComponent implements OnInit {
           for(let photo of this.photos) {
               if(album.id === photo.albumId) {
                 photosPerFilter[index] = photo;
-                if(index <= 10)
-                  index++;
-                else
-                  return photosPerFilter;
+                index++
               }   
-            
           }
         }
       }
@@ -106,10 +131,7 @@ export class PhotosComponent implements OnInit {
           for(let photo of this.photos) {
               if(album.id === photo.albumId) {
                 photosPerFilter[index] = photo;
-                if(index <= 10)
-                  index++;
-                else
-                  return photosPerFilter;
+                index++
               }   
             
           }
@@ -122,20 +144,29 @@ export class PhotosComponent implements OnInit {
           for(let photo of this.photos) {
               if(photo.id === toAnalize) {
                 photosPerFilter[index] = photo;
-                if(index <= 10)
-                  index++;
-                else
-                  return photosPerFilter;
+                index++
               }   
-            
           }
-        
+    }
+      console.log(`photosperfilter`, photosPerFilter);
+    var indexAux = 0;
+    for(var i = this.firstIndex; i < this.lastIndex; i++) {
+        if(photosPerFilter[i] != undefined){ 
+          auxPhotosPerFilter[indexAux] = photosPerFilter[i];
+          indexAux++;
+          console.log(`let's see aux `,auxPhotosPerFilter[i])
+          console.log(`and original `,photosPerFilter[i])
+        }
       
     
     }
-
-    console.log(`we're in photosPerUser and array is: `,photosPerFilter);
-    return photosPerFilter;      
+    console.log(`AUX`,auxPhotosPerFilter);
+   
+    if(auxPhotosPerFilter === undefined) {
+      return null;
+    } else {
+      return auxPhotosPerFilter;
+    }      
     }
 
 

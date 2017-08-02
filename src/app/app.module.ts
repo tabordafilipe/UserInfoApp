@@ -15,6 +15,9 @@ import { UsersService } from './users.service';
 
 import { GeneralCasePipe } from './pipes/general-case.pipe';
 
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+
+
 
 
 @NgModule({
@@ -29,7 +32,8 @@ import { GeneralCasePipe } from './pipes/general-case.pipe';
     BrowserModule,
     FormsModule,
     HttpModule,
-    routes 
+    routes,
+    PaginationModule.forRoot()
   ],
   providers: [ UsersService],
   bootstrap: [AppComponent]
