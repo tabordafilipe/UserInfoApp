@@ -14,7 +14,7 @@ import { UsersService } from './users.service';
 
 
 import { GeneralCasePipe } from './pipes/general-case.pipe';
-import { PhotosCasePipe } from './photos-case.pipe';
+
 
 
 @NgModule({
@@ -24,8 +24,6 @@ import { PhotosCasePipe } from './photos-case.pipe';
     PhotosComponent,
     UsersComponent,
     GeneralCasePipe,
-    PhotosCasePipe,
- 
   ],
   imports: [
     BrowserModule,

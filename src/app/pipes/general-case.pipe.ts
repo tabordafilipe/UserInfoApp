@@ -54,34 +54,7 @@ export class GeneralCasePipe implements PipeTransform {
             console.log(array);
             return array.filter(post => post.id == term);
             
-        }
-/*
-        if (pipe == "photosCase") {
-             console.log(`in photosCase, term is: `+term);
-            if (isNaN(term) || term === null)
-                return array.filter(photo => photo.albumId == 1);
-            console.log(array);
-            return array.filter(photo => photo.albumId == term);    
-        }
-
-        if (pipe == "albumIdCase") {
-             console.log(`in albumIdCase, term is: `+term);
-            if (isNaN(term) || term === null)
-                return array.filter(photo => photo.albumId == 1);
-            console.log(array);
-            return array.filter(photo => photo.albumId == term);   
-        }
-
-        if (pipe == "photoUserIdCase") {
-             console.log(`in photoUserIdCase, term is: `+term);
-            if (isNaN(term) || term === null)
-                return array.filter(photo => photo.id == 1);
-            console.log(array);
-            return array.filter(photo => photo.id == term);
-            
-        }
-
-     */   
+        }  
 
     }
 

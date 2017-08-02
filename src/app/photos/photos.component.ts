@@ -62,71 +62,87 @@ export class PhotosComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  /*
-  setPageSize() {
-    let i = 0.05 * this.photos.length;
-    this.numberOfPages = i;
-  }
 
-  /*
-  numberOfPhotosPerUser(userId: number):number {
-
-    let i = 0;
-
-    for(let album of this.albums) {
-      if(userId === album.userId) {
-        for(let photo of this.photos) {
-          if(album.id === photo.albumId){
-            i++;
-          }
-        }
-      }
-    }
-
-    return i;
-
-  }
-  */ 
-
-  public photosPerUser(user :number):Photo[] {
-    console.log(`The id is: `,user);
+  public photosPerFilter(toAnalize :number):Photo[] {
+    console.log(`The id is: `,toAnalize);
     console.log(`Albums: `,this.albums);
     console.log(`Photos: `,this.photos);
-    var photosPerUser = [];
+    var photosPerFilter = [];
     var index = 0;
     
-    if (user === null || this.photos === undefined || this.albums === undefined) {
-        return null;
+    if (toAnalize === null || this.photos === undefined || this.albums === undefined) {
+      console.log(`to analize`,toAnalize);
+      console.log(`photos`,this.photos);
+      console.log(`albums`,this.albums);
+      /*
+      for(let i = 0; i < 10; i++) {
+        photosPerFilter[i] = this.photos
+      }
+      
+      return photosPerFilter;
+      */
+      return null;
     } 
+    if(this.pipeType == "userIdCase") {
     for(let album of this.albums) {
-        if(album.userId === user) {
+        if(album.userId === toAnalize) {
           for(let photo of this.photos) {
               if(album.id === photo.albumId) {
-                photosPerUser[index] = photo;
+                photosPerFilter[index] = photo;
                 if(index <= 10)
                   index++;
                 else
-                  return photosPerUser;
+                  return photosPerFilter;
               }   
             
           }
         }
       }
-    console.log(`we're in photosPerUser and array is: `,photosPerUser);
-    return photosPerUser;      
     }
+
+    if(this.pipeType == "albumIdCase") {
+        for(let album of this.albums) {
+        if(album.id === toAnalize) {
+          for(let photo of this.photos) {
+              if(album.id === photo.albumId) {
+                photosPerFilter[index] = photo;
+                if(index <= 10)
+                  index++;
+                else
+                  return photosPerFilter;
+              }   
+            
+          }
+        }
+      }
+    
+    }
+
+    if(this.pipeType == "photoIdCase") {
+          for(let photo of this.photos) {
+              if(photo.id === toAnalize) {
+                photosPerFilter[index] = photo;
+                if(index <= 10)
+                  index++;
+                else
+                  return photosPerFilter;
+              }   
+            
+          }
+        
+      
+    
+    }
+
+    console.log(`we're in photosPerUser and array is: `,photosPerFilter);
+    return photosPerFilter;      
+    }
+
+
   
   setSearchType(value: string) {
     console.log(`SEARCH TYPE - ` + value + `name is: ` + name);
-    this.pipeType = value;
-    /*
-    if(value == "userIdCase") 
-      this.pipeType = "userIdCase";   
-    if(value == "albumIdCase") 
-      this.pipeType = "albumIdCase";
-    if(value == "photoIdCase")
-      this.pipeType = "photoIdCase";
-    */
+   this.pipeType = value;
   }
 
 
