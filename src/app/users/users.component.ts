@@ -19,7 +19,6 @@ export class UsersComponent implements OnInit {
   selectedUser: string;
 
   pipeType: string;
-  pipe: string;
 
   name: String;
   users: User[];

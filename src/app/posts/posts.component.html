@@ -6,7 +6,6 @@
 
     <div class="searchButton" >
         Search by:
-    <!-- PLEASE change this routerLink-->
     <button routerLink="/users" class="btn btn-warning btn-xs">Username</button>
     <button (click)='setSearchType("userIdCase")' class="btn btn-danger btn-xs">User ID</button>
     <button (click)='setSearchType("postIdCase")' class="btn btn-success btn-xs">Post ID</button>
@@ -14,8 +13,8 @@
 </div>
 
 <hr>
+
 <div class="panel panel-primary" *ngFor="let post of posts | generalCase :id :pipeType">
-    
     <div class="panel-heading">
          <h3 class="panel-title">{{post.title}}</h3>
     </div>

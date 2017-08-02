@@ -7,57 +7,64 @@ export class GeneralCasePipe implements PipeTransform {
 
     transform(array: any, term: any, pipe: any): any {
         //check if term search is undefined
-        console.log("Estado Array:", pipe)
         if (term === undefined || array === undefined) {
             return array;
         }
-
-        if (pipe == "nameCase" || pipe == "") {
+        
+        switch(pipe) { 
+        case "": { 
             return array.filter(function (user) {
                 return user.name.toLowerCase().includes(term.toLowerCase());
-            })
+        });
         }
-
-        if (pipe == "emailCase") {
+        case "nameCase": { 
+            return array.filter(function (user) {
+                return user.name.toLowerCase().includes(term.toLowerCase());
+        });
+        } 
+        case "emailCase": { 
             return array.filter(function (user) {
                 return user.email.toLowerCase().includes(term.toLowerCase());
-            })
-        }
-
-        if (pipe == "phoneCase") {
+            }); 
+        } 
+        case "phoneCase": {
             return array.filter(function (user) {
                 return user.phone.toLowerCase().includes(term.toLowerCase());
-            })
-        }
-
-    
-        if (pipe == "postsCase") {
-            console.log(`in`);
+            });  
+        } 
+        case "postsCase": { 
             if (isNaN(term) || term === null)
                 return array;
             console.log(array);
-            return array.filter(post => post.userId == term);
-        }
-
-        if (pipe == "userIdCase") {
+            return array.filter(post => post.userId == term); 
+        }  
+        case "userIdCase": { 
             console.log(`in userIdCase, term is: `+term);
             if (isNaN(term) || term === null)
                 return array;
             console.log(array);
-            return array.filter(post => post.userId == term);
-            
-        }
-        if (pipe == "postIdCase") {
-             console.log(`in postsIdCase, term is: `+term);
-            if (isNaN(term) || term === null)
-                return array;
+            return array.filter(post => post.userId == term);    
+        } 
+        case "postIdCase": { 
+            console.log(`in postsIdCase, term is: `+term);
+                if (isNaN(term) || term === null)
+                    return array;
             console.log(array);
-            return array.filter(post => post.id == term);
-            
-        }  
+            return array.filter(post => post.id == term);   
+        } 
 
     }
 
 
 }
+
+
+
+
+
+   
+}
+
+
+
 

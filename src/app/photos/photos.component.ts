@@ -26,21 +26,15 @@ export class PhotosComponent implements OnInit {
 
   albums: Album[];
   photos: Photo[];
-  numberOfPages: number;
 
-  auxArray: Photo[];
-
-  public totalItems: number =500;
+  public totalItems: number = 0;
   public currentPage: number = 1;
   public smallnumPages: number = 0;
 
   firstIndex :number;
   lastIndex :number;
- 
-
 
   constructor(AlbumsService: AlbumsService, PhotosService: PhotosService, private route: ActivatedRoute) { 
-
     this.id = 0;
     this.pipeType = 'userIdCase';
 
@@ -50,7 +44,6 @@ export class PhotosComponent implements OnInit {
           this.albums = albums;
           console.log(albums);
         }
-
     );
 
     PhotosService.getHTTP()
@@ -73,7 +66,7 @@ export class PhotosComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-
+  //pagination methods
   public setPage(pageNo: number): void {
     this.currentPage = pageNo;
   }
@@ -82,62 +75,46 @@ export class PhotosComponent implements OnInit {
     this.setPage(event.page);
     this.firstIndex = (this.currentPage - 1) * 10;
     this.lastIndex = this.currentPage * 10;
-
-    console.log('Page changed to: ' + event.page);
-    console.log(`Current page`,this.currentPage);
-    console.log('Number items per page: ' + event.itemsPerPage);
   }
 
+  //used to filter the photos
   public photosPerFilter(toAnalize :number):Photo[] {
     var photosPerFilter = [];
     var auxPhotosPerFilter = [];
-    
 
     this.firstIndex = (this.currentPage - 1) * 10;
     this.lastIndex = this.currentPage * 10;
 
-    console.log(`first index`,this.firstIndex);
-    console.log(`last index`, this.lastIndex);
-
     var index = 0;
     
     if (toAnalize === null || this.photos === undefined || this.albums === undefined) {
-      
-      /*
-      for(let i = 0; i < 10; i++) {
-        photosPerFilter[i] = this.photos
-      }
-      
-      return photosPerFilter;
-      */
       return null;
     } 
+
     if(this.pipeType == "userIdCase") {
-    for(let album of this.albums) {
-        if(album.userId === toAnalize) {
-          for(let photo of this.photos) {
-              if(album.id === photo.albumId) {
-                photosPerFilter[index] = photo;
-                index++
-              }   
+      for(let album of this.albums) {
+          if(album.userId === toAnalize) {
+            for(let photo of this.photos) {
+                if(album.id === photo.albumId) {
+                  photosPerFilter[index] = photo;
+                  index++
+                }   
+            }
           }
-        }
       }
     }
 
     if(this.pipeType == "albumIdCase") {
         for(let album of this.albums) {
-        if(album.id === toAnalize) {
-          for(let photo of this.photos) {
-              if(album.id === photo.albumId) {
-                photosPerFilter[index] = photo;
-                index++
-              }   
-            
-          }
+          if(album.id === toAnalize) {
+            for(let photo of this.photos) {
+                if(album.id === photo.albumId) {
+                  photosPerFilter[index] = photo;
+                  index++
+                }   
+            }
         }
       }
-    
     }
 
     if(this.pipeType == "photoIdCase") {
@@ -148,32 +125,31 @@ export class PhotosComponent implements OnInit {
               }   
           }
     }
-      console.log(`photosperfilter`, photosPerFilter);
+
+    if(photosPerFilter != undefined)
+      this.totalItems = photosPerFilter.length;
+    else
+      this.totalItems = 0;
+
     var indexAux = 0;
     for(var i = this.firstIndex; i < this.lastIndex; i++) {
         if(photosPerFilter[i] != undefined){ 
           auxPhotosPerFilter[indexAux] = photosPerFilter[i];
           indexAux++;
-          console.log(`let's see aux `,auxPhotosPerFilter[i])
-          console.log(`and original `,photosPerFilter[i])
         }
-      
-    
     }
-    console.log(`AUX`,auxPhotosPerFilter);
    
-    if(auxPhotosPerFilter === undefined) {
+    if(auxPhotosPerFilter === undefined)
       return null;
-    } else {
+    else 
       return auxPhotosPerFilter;
-    }      
-    }
+          
+  }
 
 
   
   setSearchType(value: string) {
-    console.log(`SEARCH TYPE - ` + value + `name is: ` + name);
-   this.pipeType = value;
+    this.pipeType = value;
   }
 
 
